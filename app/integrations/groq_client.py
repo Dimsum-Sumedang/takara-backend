@@ -33,6 +33,7 @@ class GroqClient:
             messages=messages,
             temperature=0.7,
             reasoning_format="hidden",
+            reasoning_effort="low",
             max_completion_tokens=150,
             stream=True
         )
@@ -49,7 +50,7 @@ class GroqClient:
             # Mengirim tuple (nama_file, bytes) langsung ke Groq API
             response = await self.client.audio.transcriptions.create(
                 file=(filename, audio_bytes),
-                model="whisper-large-v3", # Model whisper tercepat saat ini
+                model="whisper-large-v3-turbo", # ~6x faster decode than large-v3, cheaper; prod model on Groq
                 response_format="text"    # Kita minta format teks langsung
             )
             return response
