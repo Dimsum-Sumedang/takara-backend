@@ -6,13 +6,21 @@ class GroqClient:
         self.client = AsyncGroq(api_key=api_key)
 
     async def chat_completion(
-        self, 
-        model: str, 
-        messages: list, 
-        temperature: float = 0.7, 
+        self,
+        model: str,
+        messages: list,
+        temperature: float = 0.7,
         response_format: dict = None
     ) -> str:
-        kwargs = {"model": model, "messages": messages, "temperature": temperature}
+        kwargs = {
+            "model": model,
+            "messages": messages,
+            "temperature": temperature,
+            # Reasoning models: hide <think> traces from content (JSON mode
+            # rejects "raw") and bound total completion tokens.
+            "reasoning_format": "hidden",
+            "max_completion_tokens": 2048,
+        }
         if response_format:
             kwargs["response_format"] = response_format
 
@@ -24,7 +32,8 @@ class GroqClient:
             model=model,
             messages=messages,
             temperature=0.7,
-            max_tokens=150,
+            reasoning_format="hidden",
+            max_completion_tokens=150,
             stream=True
         )
         async for chunk in stream:

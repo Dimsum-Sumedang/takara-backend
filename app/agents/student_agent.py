@@ -6,7 +6,7 @@ from typing import AsyncGenerator
 class StudentAgent:
     def __init__(self, groq_client: GroqClient):
         self.client = groq_client
-        self.model = "llama-3.1-8b-instant"
+        self.model = "openai/gpt-oss-20b"
 
     def get_persona_prompt(self, persona: str) -> str:
         base = (

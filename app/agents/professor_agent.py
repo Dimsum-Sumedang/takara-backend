@@ -5,7 +5,7 @@ from app.schemas.transcript import MessageResponse
 class ProfessorAgent:
     def __init__(self, groq_client: GroqClient):
         self.client = groq_client
-        self.model = "llama-3.3-70b-versatile"
+        self.model = "openai/gpt-oss-120b"
         # Prompt disesuaikan mutlak dengan UI Evaluation
         self.system_prompt = """You are a highly analytical communication coach evaluating a conversation transcript between a USER and TAKARA AI.
 When writing highlights or descriptions, DO NOT use internal role tags like "STUDENT_AGENT" or "USER" verbatim. Instead, use natural language (e.g., "you", "the AI", "Takara"). Address the USER directly ("You did X well").

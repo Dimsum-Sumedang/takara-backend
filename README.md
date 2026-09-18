@@ -5,8 +5,8 @@ Takara adalah *backend* API berbasis *async-first* yang dibangun dengan **FastAP
 ## Fitur Utama
 
 ### Sistem Multi-Agen (Dual AI)
-* **Student Agent:** Menggunakan model `llama-3.1-8b-instant` via **Groq** untuk respons super cepat. Menggunakan antarmuka *Server-Sent Events* (SSE) untuk mengalirkan (*stream*) teks secara *real-time* ke klien.
-* **Professor Agent:** Menggunakan model `llama-3.3-70b-versatile`. Memanfaatkan format `json_object` dan `temperature=0.0` murni untuk memberikan evaluasi logis dari sesi obrolan tanpa risiko halusinasi format.
+* **Student Agent:** Menggunakan model `openai/gpt-oss-20b` via **Groq** untuk respons super cepat. Menggunakan antarmuka *Server-Sent Events* (SSE) untuk mengalirkan (*stream*) teks secara *real-time* ke klien.
+* **Professor Agent:** Menggunakan model `openai/gpt-oss-120b`. Memanfaatkan format `json_object` dan `temperature=0.0` murni untuk memberikan evaluasi logis dari sesi obrolan tanpa risiko halusinasi format.
 
 ### Ketahanan Tingkat Enterprise (SRE Best Practices)
 * **Zero Data Loss Architecture:** Semua transaksi *database* menggunakan sistem antrean.
@@ -22,7 +22,7 @@ Takara adalah *backend* API berbasis *async-first* yang dibangun dengan **FastAP
 ## Tech Stack
 
 * **Framework:** FastAPI, Uvicorn, Pydantic
-* **AI & LLM:** Groq API (Llama 3.1 & 3.3, Whisper)
+* **AI & LLM:** Groq API (GPT-OSS 20B & 120B, Whisper)
 * **Voice:** Microsoft Edge TTS
 * **Database:** Supabase (PostgreSQL), SQLite (via `aiosqlite`)
 * **Testing:** Pytest, Pytest-Asyncio
