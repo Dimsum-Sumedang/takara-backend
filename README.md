@@ -74,6 +74,16 @@ pytest tests/ -v -s
 
 Jika berhasil, Anda akan melihat log asinkronus yang menunjukkan proses percobaan ulang (*retry*) dan penyelamatan data asinkronus (*fallback*) ke SQLite.
 
+## Deploy ke Render
+
+1. Push direktori `takara-backend` sebagai repository tersendiri (mis. `takara-be`).
+2. Di Render: **New → Blueprint Instance**, pilih repo tersebut. Render membaca `render.yaml` (build: `pip install -r requirements.txt`, start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, health check `/api/v1/health`).
+3. Isi variabel bertanda `sync: false` saat instance dibuat: `GROQ_API_KEY`, `DATABASE_URL`, `JWT_SECRET`, `OTP_PEPPER`, `FALLBACK_ENCRYPTION_KEY`, dan `CORS_ORIGINS` (isi dengan domain Vercel frontend setelah deploy pertama).
+4. Variabel opsional (`REDIS_URL`, `SMTP_*`, `RESEND_API_KEY`, `BREVO_API_KEY`, `TRUSTED_PROXY_IPS`) ditambahkan lewat dashboard bila dipakai. Tanpa `REDIS_URL`, rate-limit dan turn-guard memakai fallback in-memory — valid untuk satu instance.
+5. Verifikasi: `curl https://<service>.onrender.com/api/v1/health` mengembalikan `{"status":"healthy",...}`.
+
+Alternatif monorepo: jika seluruh folder `takara/` berada dalam satu repo, jangan pakai Blueprint — buat **Web Service** manual dengan *Root Directory* `takara-backend` serta build/start command yang sama seperti di atas.
+
 ## Struktur Direktori Utama
 
 ```text
